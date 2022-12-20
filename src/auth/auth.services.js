@@ -40,14 +40,15 @@ const postLogin = (req, res) => {
 const postRecoveryToken = (req, res) => {
 
     const { email } = req.body
-    authControllers.createRecoveryToken(email)
+    if(email){
+        authControllers.createRecoveryToken(email)
         .then((data) => {
             if(data){
                 mailer.sendMail({
-                    from: '<test.academlo@gmail.com>',
+                    from: '<alejonarvaez3489@gmail.com>',
                     to: email,
                     subject: 'Recuperación de Contraseña',
-                    html: `<a href='${config.api.host}/api/v1/auth/recovery-password/${data.id}'>Recuperar contraseña</a>`
+                    html: `<a href='${config.api.host}/api/v1/auth/recovery-password/${data.id}'>${config.api.host}/api/v1/auth/recovery-password/${data.id}</a>`
                 })
             }
             res.status(200).json({message: 'Email sended!, Check your inbox'})
@@ -55,6 +56,26 @@ const postRecoveryToken = (req, res) => {
         .catch((err) => {
             res.status(400).json({message: err.message})
         })
+    } else{
+        res.status(400).json({message:'Invalida  Data', fields:{email:'example@example.com', password:'string'}})
+    }
+}
+
+const patchPassword = (req,res) => {
+    const id = req.params.id
+    const {password} = req.body
+
+    authControllers.changePassword(id,password)
+    .then((data) => {
+        if(data){
+            res.status(200).json({message:'Password updated successfully'})
+        }else{
+            res.status(400).json({message: 'URL expired'})
+        }
+    })
+    .catch(err => {
+            res.status(400).json({message:err.message})
+    })
 }
 
 
@@ -67,5 +88,6 @@ const postRecoveryToken = (req, res) => {
 
 module.exports = {
     postLogin,
-    postRecoveryToken
+    postRecoveryToken,
+    patchPassword
 }
