@@ -33,7 +33,7 @@ const postNewPost = (req,res) => {
             res.status(201).json(data)
         })
         .catch(err => {
-            res.status(400).json({message:err,message,fields:{
+            res.status(400).json({message:err.message,fields:{
                 content:'text'
             }})
         })
