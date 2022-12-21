@@ -25,7 +25,12 @@ const createLike = async (obj) => {
     })
 
     if(validate){
-        return null
+        const value = await Likes.destroy({
+            where: {
+                id: validate.id
+            }
+        })
+        return value
     }
     
     const data = await Likes.create({
@@ -35,6 +40,7 @@ const createLike = async (obj) => {
     })
     return data
 }
+
 
 module.exports = {
     findAllLikesFromPost,

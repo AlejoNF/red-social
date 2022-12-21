@@ -2,6 +2,7 @@ const Users = require('./users.models')
 const Posts = require('./posts.models')
 const Likes = require('./likes.models')
 const Comments = require('./comments.models')
+const Follows = require('./follows.models')
 const RecoveryPasswords = require('./recoveryPasswords.models')
 
 const initModels = () => {
@@ -21,6 +22,9 @@ const initModels = () => {
     Posts.hasMany(Likes)
     Likes.belongsTo(Posts)
 
+    //? Relacion Users - Follows
+    Users.hasMany(Follows)
+    Follows.belongsTo(Users)
 
 }
 
