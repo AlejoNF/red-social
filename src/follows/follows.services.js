@@ -26,7 +26,7 @@ const getMyFollowers = (req,res) => {
 
 const getMyFollowings = (req, res) => {
     const userId = req.user.id 
-    followControllers.findMyFollowings(userId)
+    followControllers.findMyFollowing(userId)
         .then(data => {
             res.status(200).json(data)
         })

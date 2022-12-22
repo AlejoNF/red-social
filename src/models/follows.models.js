@@ -16,7 +16,6 @@ const Follows = db.define('follows',{
             key:'id',
             model : Users
         }
-        
     },
     userId2: {
         type: DataTypes.UUID,
@@ -28,6 +27,14 @@ const Follows = db.define('follows',{
             model : Users
         }
     }
+    // ,{
+    //     //? Validacion para evitar seguir a una persona dos veces
+    //     uniqueKeys:{
+    //         follows_unique:{
+    //             fields:['userId', 'userId2']
+    //         }
+    //     }
+    // }
 })
 
 module.exports = Follows 
